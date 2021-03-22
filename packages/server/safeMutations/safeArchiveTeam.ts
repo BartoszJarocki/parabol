@@ -12,7 +12,7 @@ const safeArchiveTeam = async (teamId: string) => {
     .getAll(teamId, {index: 'teamId'})
     .filter({isNotRemoved: true})('userId')
     .run()
-  const [users] = await Promise.all([
+  const [_, users] = await Promise.all([
     db.writeMany('User', userIds, (user) => ({
       tms: user('tms').difference([teamId])
     })),

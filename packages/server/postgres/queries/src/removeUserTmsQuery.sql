@@ -4,4 +4,5 @@
 */
 UPDATE "User" SET
   tms = arr_diff(tms, :teamIds)
-WHERE id IN :ids;
+WHERE id IN :ids
+RETURNING *;

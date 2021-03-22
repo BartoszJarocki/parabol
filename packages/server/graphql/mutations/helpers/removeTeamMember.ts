@@ -115,10 +115,12 @@ const removeTeamMember = async (
     tms: user('tms').difference([teamId])
   })
 
-  const [user] = await Promise.all([
+  const [_, users] = await Promise.all([
     db.write('User', userId, reqlUpdater),
     removeUserTms(teamId, userId)
   ])
+  const user = users[0]
+  
   let notificationId
   if (evictorUserId) {
     const notification = new NotificationKickedOut({teamId, userId, evictorUserId})
